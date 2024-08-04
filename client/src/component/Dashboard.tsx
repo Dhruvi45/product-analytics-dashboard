@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   const handleBarClick = (data: any) => {
     const feature = data.name;
-    const processedData = processLineData(data, feature);
+    const processedData = processLineData(dummyData, feature);
     setSelectedFeature(feature);
     setLineData(processedData);
   };
@@ -32,10 +32,24 @@ export default function Dashboard() {
     setFilters({ age: '', gender: '' });
     setDateRange({ startDate: null, endDate: null });
   };
+  const filterData = () => {
+    const { startDate, endDate } = dateRange;
+    const { age, gender } = filters;
+
+    return dummyData.filter((item: any) => {
+      const itemDate = new Date(item.Day);
+      const isWithinDateRange = (!startDate || itemDate >= startDate) && (!endDate || itemDate <= endDate);
+      const matchesAge = !age || item.Age === age;
+      const matchesGender = !gender || item.Gender === gender;
+
+      return isWithinDateRange && matchesAge && matchesGender;
+    });
+  };
 
   useEffect(() => {
-    console.log(filters, dateRange)
-  }, [filters, dateRange])
+    // setData(filterData());
+    console.log(data)
+  }, [filters, dateRange]);
 
   return (
     <>
