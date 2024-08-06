@@ -42,7 +42,7 @@ export default function Dashboard() {
     const params = {
       age: filters.age.length > 0 ? filters.age : null,
       gender: filters.gender.length > 0 ? filters.gender : null,
-      startDate: dateRange.startDate? format(dateRange.startDate, 'M/d/yyyy'):null,
+      startDate: dateRange.startDate,
       endDate: dateRange.endDate
     }
     console.log(params)

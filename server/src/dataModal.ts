@@ -2,7 +2,7 @@ import { Schema, model, Document } from 'mongoose';
 
 // Define an interface representing a document in the database
 interface IData extends Document {
-  Day: string;
+  Day: Date;
   Age: string;
   Gender: string;
   A: number;
@@ -15,7 +15,7 @@ interface IData extends Document {
 
 // Create a Mongoose schema based on the interface
 const dataSchema = new Schema<IData>({
-  Day: { type: String, required: true },
+  Day: { type: Date, required: true },
   Age: { type: String, required: true },
   Gender: { type: String, required: true },
   A: { type: Number, required: true },

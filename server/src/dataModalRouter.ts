@@ -6,7 +6,7 @@ const router = Router();
 router.get('/data', async (req: Request, res: Response) => {
     try {
         const { age, gender, startDate, endDate } = req.query;
-        console.log('fffff',age)
+        console.log('fffff', age)
 
         // Build the query object
         const query: any = {};
@@ -23,11 +23,11 @@ router.get('/data', async (req: Request, res: Response) => {
             const dateRangeQuery: any = {};
 
             if (startDate && typeof startDate === 'string') {
-                dateRangeQuery.$gte = startDate;
+                dateRangeQuery.$gte = new Date(startDate);
             }
 
             if (endDate && typeof endDate === 'string') {
-                dateRangeQuery.$lte = endDate;
+                dateRangeQuery.$lte = new Date(endDate);
             }
 
             query.Day = dateRangeQuery;
