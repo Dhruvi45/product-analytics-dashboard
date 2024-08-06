@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Container } from 'react-bootstrap';
 import DateRangeSelector from './DateRangeSelector';
 import Filters from './Filters';
-import { dummyData } from '../dummyData';
+// import { dummyData } from '../dummyData';
 import LineChartComponent from '../charts/LineChart';
 import BarChartComponent from '../charts/Barchart';
+import axios from 'axios';
+import { format } from 'date-fns';
+
 export default function Dashboard() {
-  const [data, setData] = useState<any[]>(dummyData);
+  const [data, setData] = useState<any[]>([]);
   const [filters, setFilters] = useState<{ age: string; gender: string }>({ age: '', gender: '' });
   const [dateRange, setDateRange] = useState<{ startDate: Date | null; endDate: Date | null }>({
     startDate: null,
@@ -19,9 +22,9 @@ export default function Dashboard() {
     return data.map((item: any) => ({ Day: item.Day, value: item[feature] }));
   };
 
-  const handleBarClick = (data: any) => {
-    const feature = data.name;
-    const processedData = processLineData(dummyData, feature);
+  const handleBarClick = (bar: any) => {
+    const feature = bar.name;
+    const processedData = processLineData(data, feature);
     setSelectedFeature(feature);
     setLineData(processedData);
   };
@@ -32,23 +35,24 @@ export default function Dashboard() {
     setFilters({ age: '', gender: '' });
     setDateRange({ startDate: null, endDate: null });
   };
-  const filterData = () => {
-    const { startDate, endDate } = dateRange;
-    const { age, gender } = filters;
-
-    return dummyData.filter((item: any) => {
-      const itemDate = new Date(item.Day);
-      const isWithinDateRange = (!startDate || itemDate >= startDate) && (!endDate || itemDate <= endDate);
-      const matchesAge = !age || item.Age === age;
-      const matchesGender = !gender || item.Gender === gender;
-
-      return isWithinDateRange && matchesAge && matchesGender;
-    });
-  };
 
   useEffect(() => {
     // setData(filterData());
-    console.log(data)
+    console.log('call')
+    const params = {
+      age: filters.age.length > 0 ? filters.age : null,
+      gender: filters.gender.length > 0 ? filters.gender : null,
+      startDate: dateRange.startDate? format(dateRange.startDate, 'M/d/yyyy'):null,
+      endDate: dateRange.endDate
+    }
+    console.log(params)
+    axios.get('https://literate-chainsaw-wqjpp94pp62g96g-5000.app.github.dev/data', { params: params })
+      .then((res) => {
+        setData(res.data)
+        const processedData = processLineData(res.data, selectedFeature);
+        setLineData(processedData);
+
+      })
   }, [filters, dateRange]);
 
   return (
@@ -76,7 +80,12 @@ export default function Dashboard() {
           <BarChartComponent onClick={handleBarClick} data={data} />
         </div>
         <div style={{ marginBottom: '40px' }}>
-          {selectedFeature && <LineChartComponent data={lineData} />}
+          {selectedFeature && 
+          <>
+          <h3>Line chart for {selectedFeature}</h3>
+          <LineChartComponent data={lineData} />
+          </>
+          }
         </div>
       </div>
 
