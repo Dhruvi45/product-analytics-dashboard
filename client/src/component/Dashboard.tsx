@@ -8,6 +8,7 @@ import BarChartComponent from '../charts/Barchart';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import Header from './Header';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export default function Dashboard() {
       endDate: dateRange.endDate
     }
     console.log(params)
-    axios.get('https://literate-chainsaw-wqjpp94pp62g96g-5000.app.github.dev/data', { params: params })
+    axios.get('http://localhost:5000/data', { params: params })
       .then((res) => {
         setData(res.data)
         const processedData = processLineData(res.data, selectedFeature);
@@ -60,6 +61,7 @@ export default function Dashboard() {
 
   return (
     <>
+    <Header/>
       <div style={{ padding: '20px' }}>
         <h1>Interactive Data Visualization Dashboard</h1>
 <button onClick={()=>navigate('/login')}> login</button>
