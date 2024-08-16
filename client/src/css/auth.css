@@ -47,6 +47,7 @@ body {
 }
 
 .form-block {
+    margin-top: 45px;
     position: relative;
     margin: 100px auto 0;
     width: 285px;
@@ -84,12 +85,12 @@ body {
 }
 
 .form-block--is-signup .form-block__input-wrapper {
-    height: 252px;
+    height: 300px;
     transition: all .5s cubic-bezier(.36, 1, .62, .98) .2s;
 }
 
 .form-group--signup {
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 150%;
     width: 100%;

@@ -32,9 +32,9 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <div
-        className={`form-block-wrapper form-block-wrapper--is-login`}
+        className={`form-block-wrapper form-block-wrapper--is-${mode}`}
       ></div>
       <section className={`form-block form-block--is-${mode}`}>
         <header className="form-block__header">
@@ -69,7 +69,7 @@ const LoginForm: React.FC<{
 }> = ({ mode, onSubmit, register, errors, getValues }) => (
   <form onSubmit={onSubmit}>
     <div className="form-block__input-wrapper">
-      <div className={`form-group form-group--login`}>
+      <div className={`form-group form-group--${mode}`}>
         {mode === "login" ? (
           <>
             <div className="textfield">
