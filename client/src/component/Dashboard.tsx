@@ -7,8 +7,11 @@ import LineChartComponent from '../charts/LineChart';
 import BarChartComponent from '../charts/Barchart';
 import axios from 'axios';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   const [data, setData] = useState<any[]>([]);
   const [filters, setFilters] = useState<{ age: string; gender: string }>({ age: '', gender: '' });
   const [dateRange, setDateRange] = useState<{ startDate: Date | null; endDate: Date | null }>({
@@ -59,7 +62,7 @@ export default function Dashboard() {
     <>
       <div style={{ padding: '20px' }}>
         <h1>Interactive Data Visualization Dashboard</h1>
-
+<button onClick={()=>navigate('/login')}> login</button>
         <Container fluid>
           <Row className="align-items-center">
             <Col lg={4} md={4}>
