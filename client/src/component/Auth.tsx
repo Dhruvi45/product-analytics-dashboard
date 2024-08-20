@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
 import "../css/auth.css";
+import axios from "axios";
 
 interface LoginFormInputs {
   email: string;
@@ -19,7 +20,7 @@ const Login: React.FC = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-    clearErrors
+    clearErrors,
   } = useForm<LoginFormInputs>();
 
   const toggleMode = () => {
@@ -29,6 +30,14 @@ const Login: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     console.log("Form Data:", data);
+    axios
+      .post(
+        `http://localhost:5000/${mode === "login" ? "login" : "register"}`,
+        { ...data }
+      )
+      .then((res) => {
+        console.log("res", res);
+      });
   };
 
   return (
