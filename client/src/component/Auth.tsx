@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
 import "../css/auth.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface LoginFormInputs {
   email: string;
@@ -11,16 +11,17 @@ interface LoginFormInputs {
   repeatpassword?: string;
 }
 
-const initialMode = "signup";
-
 const Login: React.FC = () => {
-  const [mode, setMode] = useState(initialMode);
+  const [mode, setMode] = useState('login');
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
     clearErrors,
+    reset,
   } = useForm<LoginFormInputs>();
 
   const toggleMode = () => {
@@ -37,6 +38,16 @@ const Login: React.FC = () => {
       )
       .then((res) => {
         console.log("res", res);
+        if (res.status === 200) {
+          if (mode === "login") {
+            navigate("/dashboard");
+            localStorage.setItem("token", res.data.token);
+          }
+          else{
+            setMode('login')
+            reset()
+          }
+        }
       });
   };
 

@@ -1,7 +1,16 @@
-import { useState } from 'react';
+import { format } from "date-fns";
+import { useState } from "react";
+import { Button, Col, Row } from "react-bootstrap";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
-} from 'recharts';
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const LineChartComponent = ({ data }: any) => {
   const [zoom, setZoom] = useState({ start: 0, end: data.length });
@@ -34,20 +43,39 @@ const LineChartComponent = ({ data }: any) => {
   };
 
   const zoomedData = data.slice(zoom.start, zoom.end);
+
+  // Format the date as "MMM dd" (e.g., "Oct 07")
+  const formatXAxis = (tickItem: string) => {
+    return format(new Date(tickItem), "dd-MM-yyyy");
+  };
+
+  // Format the label on hover
+  const formatTooltipLabel = (label: string) => {
+    return format(new Date(label), 'dd-MM-yyyy');
+  };
+
   return (
     <>
-      <div>
-        <button onClick={handleZoomIn}>Zoom In</button>
-        <button onClick={handleZoomOut}>Zoom Out</button>
-        <button onClick={handlePanLeft}>Pan Left</button>
-        <button onClick={handlePanRight}>Pan Right</button>
-      </div>
+      <Row className="mb-3">
+        <Col>
+          <Button onClick={handleZoomIn}>Zoom In</Button>
+        </Col>
+        <Col>
+          <Button onClick={handleZoomOut}>Zoom Out</Button>
+        </Col>
+        <Col>
+          <Button onClick={handlePanLeft}>Pan Left</Button>
+        </Col>
+        <Col>
+          <Button onClick={handlePanRight}>Pan Right</Button>
+        </Col>
+      </Row>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={zoomedData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="Day" />
+          <XAxis dataKey="Day" tickFormatter={formatXAxis} />
           <YAxis />
-          <Tooltip />
+          <Tooltip labelFormatter={formatTooltipLabel}/>
           <Legend />
           <Line type="monotone" dataKey="value" stroke="#8884d8" />
         </LineChart>
