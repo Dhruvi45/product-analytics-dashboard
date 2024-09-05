@@ -33,7 +33,7 @@ const Login: React.FC = () => {
     console.log("Form Data:", data);
     axios
       .post(
-        `http://localhost:5000/${mode === "login" ? "login" : "register"}`,
+        `https://lflv8h-5000.csb.app/${mode === "login" ? "login" : "register"}`,
         { ...data }
       )
       .then((res) => {

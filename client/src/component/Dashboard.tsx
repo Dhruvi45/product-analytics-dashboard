@@ -57,7 +57,7 @@ export default function Dashboard() {
       startDate: dateRange.startDate,
       endDate: dateRange.endDate,
     };
-    axios.get("http://localhost:5000/data", { params: params }).then((res) => {
+    axios.get("https://lflv8h-5000.csb.app/data", { params: params }).then((res) => {
       setData(res.data);
       const processedData = processLineData(res.data, selectedFeature);
       setLineData(processedData);
