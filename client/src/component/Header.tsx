@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -15,10 +15,15 @@ export default function Header() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">Visualization Dashboard</Navbar.Brand>
+        <Navbar.Brand href="#home">MoonShoot</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
+            <Nav.Link as={Link} to="/outlook">Outlook</Nav.Link>
+
+          </Nav>
+          <Nav className="ms-auto">
+
             <Nav.Link onClick={() => logout()}>
               Logout
             </Nav.Link>

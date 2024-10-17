@@ -7,6 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Login from "./component/Auth";
+import Mail from "./Q2/Mail";
 function App() {
   const token = localStorage.getItem("token");
   return (
@@ -18,6 +19,7 @@ function App() {
             element={token ? <Navigate to="/dashboard" /> : <Login />}
           />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/outlook" element={token ? <Mail /> : <Navigate to="/login" />} />
           <Route
             path="/"
             element={
