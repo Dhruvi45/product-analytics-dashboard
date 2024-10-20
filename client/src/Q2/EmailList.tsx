@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getEmailList } from './emailService'; // Your API Service
+import { format } from 'date-fns';
 
 interface Email {
   id: string;
@@ -54,6 +55,7 @@ const EmailList = ({ onEmailClick }: { onEmailClick: (id: string,subject:string,
               <p>From: {email.from.email}</p>
               <p>Subject: {email.subject}</p>
               <p>{email.short_description}</p>
+              <p>{format(new Date(email.date), 'dd/MM/yyyy hh:mm a')}</p>
               <p>{email.date}</p>
             </div>
           </li>

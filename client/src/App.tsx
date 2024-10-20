@@ -10,6 +10,7 @@ import Login from "./component/Auth";
 import Mail from "./Q2/Mail";
 function App() {
   const token = localStorage.getItem("token");
+  console.log(token ? "<Mail />" : '<Navigate to="/login" />')
   return (
     <>
       <Router>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getEmailBody } from './emailService'; // Your API Service
+import { format } from 'date-fns';
 
 const EmailBody = ({ emailId, subject, emailDate }: { emailId: string, subject: string | null, emailDate: string | null }) => {
     const [emailBody, setEmailBody] = useState({
@@ -28,7 +29,7 @@ const EmailBody = ({ emailId, subject, emailDate }: { emailId: string, subject: 
     return (
         <div className="email-body-container">
             <h2>{emailBody.subject}</h2>
-            <p>{emailBody.date}</p>
+            <p>{ emailBody.date && format(new Date(emailBody.date), 'dd/MM/yyyy hh:mm a')}</p>
             <button
                 className={`favorite-button ${emailBody.isFavorite ? 'favorited' : ''}`}
                 onClick={handleFavoriteClick}
