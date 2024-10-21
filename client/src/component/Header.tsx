@@ -15,18 +15,27 @@ export default function Header() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">MoonShoot</Navbar.Brand>
+        <Navbar.Brand onClick={() => {
+                navigate("/dashboard");
+              }}>MoonShoot</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/outlook">Outlook</Nav.Link>
-
-          </Nav>
-          <Nav className="ms-auto">
-
-            <Nav.Link onClick={() => logout()}>
-              Logout
+          <Nav.Link
+              onClick={() => {
+                navigate("/dashboard");
+              }}
+            >
+              Dashboard
             </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/outlook");
+              }}
+            >
+              Outlook
+            </Nav.Link>
+            <Nav.Link onClick={() => logout()}>Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

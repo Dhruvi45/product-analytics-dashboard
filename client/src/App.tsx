@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect } from "react";
 import Dashboard from "./component/Dashboard";
 import {
   BrowserRouter as Router,
@@ -9,8 +10,11 @@ import {
 import Login from "./component/Auth";
 import Mail from "./Q2/Mail";
 function App() {
-  const token = localStorage.getItem("token");
-  console.log(token ? "<Mail />" : '<Navigate to="/login" />')
+  let token = localStorage.getItem("token");
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+  }, [token]);
+  console.log(token ? "<Mail />" : '<Navigate to="/login" />');
   return (
     <>
       <Router>
@@ -20,7 +24,10 @@ function App() {
             element={token ? <Navigate to="/dashboard" /> : <Login />}
           />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/outlook" element={token ? <Mail /> : <Navigate to="/login" />} />
+          <Route
+            path="/outlook"
+            element={token ? <Mail /> : <Navigate to="/login" />}
+          />
           <Route
             path="/"
             element={

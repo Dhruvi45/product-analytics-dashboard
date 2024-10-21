@@ -18,7 +18,7 @@ const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({ dateRange, setDat
   };
 
   const formatDate = (date: Date | null): string => {
-    return date ? date.toISOString().split('T')[0] : '';
+    return date ? new Date(date).toISOString().split('T')[0] : '';
   };
 
   return (
