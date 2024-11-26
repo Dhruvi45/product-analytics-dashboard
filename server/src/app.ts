@@ -4,11 +4,13 @@ import DataModel from './dataModal';
 import mongoose from 'mongoose';
 import express, { Request, Response } from 'express';
 import dataRoutes from './dataModalRouter';
-import userRoutes from "./userModalRouter"
+import userRoutes from './userModalRouter';
+
 dotenv.config();
 
 const app = express();
-const cors = require("cors");
+const cors = require('cors');
+
 // Connect to database
 connectDB();
 
@@ -16,13 +18,11 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello, Express!");
+app.get('/', (req, res) => {
+  res.send('Hello, Express!');
 });
 
-app.use(dataRoutes)
-app.use(userRoutes)
+app.use(dataRoutes);
+app.use(userRoutes);
 
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+export default app;
